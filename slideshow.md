@@ -3,13 +3,16 @@ marp: true
 author: Talmeez Faizy
 size: 4:3
 theme: uncover
-
+backgroundImage: url(https://c4.wallpaperflare.com/wallpaper/802/151/760/technology-git-hd-wallpaper-preview.jpg)
 ---
 <style>
-    {
-         font-size:18px
+    section {
+         font-size:18px;
+         color: white;
      }
+
 </style>
+
 
 # Github Actions
 - A tool that lets you automate your software development workflows.
@@ -88,7 +91,7 @@ on: [push] # it can be array of events
 jobs: 
     run-shell-command:
       runs-on: ubuntu-latest
-      #put example of self hosted for explaining the case of VM runner
+      #[self-hosted, linux]
       steps:
         - name: echo a string
           run: echo "Testing an echo command"
@@ -345,7 +348,7 @@ Above workflow will setup node to 6 version but if we want to have different ver
 **How to use strategy to create matrix of environment?**
 
 ```
-name: matirx workflow
+name: matrix workflow
 on: [push]
 # job will run for number of times depending on values present in matrix
 # if we define one more parameter with 3 values, then job will run for 
@@ -357,7 +360,9 @@ jobs:
       matrix:
        node_version: [6,8,10]
       # max-parallel: 2 # used to limit max jobs you want to run the matrix in paralell
-      # fail-fast: true # write what is the use of it?
+      # fail-fast: true 
+      # by default, matrix workflows fail fast. 
+      # That is to say: if one of the jobs in the matrix expansion fails, the rest of the jobs will be cancelled.
     runs-on: ubuntu-latest
     steps: 
       - name: Log node version
@@ -375,7 +380,7 @@ jobs:
 **Include and Exclude in matrix**
 
 ```
-name: matirx workflow
+name: matrix workflow
 on: [push]
 # job will run for number of times depending on values present in matrix
 # if we define one more parameter with 3 values, then job will run for 
@@ -514,4 +519,14 @@ jobs:
         with:
           entrypoint: /usr/local/bin/node
           args: -v
+```
+
+**BoschArtifactory**
+
+```
+container:
+      image: artifactory.boschdevcloud.com/top99-cr-local/neutrinos-gha-base:latest
+      credentials:
+          username: ${{ secrets.BDC_ARTIFACTORY_USERNAME }}
+          password: ${{ secrets.BDC_ARTIFACTORY_APIKEY }}
 ```

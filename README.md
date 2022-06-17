@@ -71,7 +71,7 @@ on: [push] # it can be array of events
 jobs: 
     run-shell-command:
       runs-on: ubuntu-latest
-      #put example of self hosted for explaining the case of VM runner
+      #[self-hosted, linux]
       steps:
         - name: echo a string
           run: echo "Testing an echo command"
@@ -465,4 +465,14 @@ jobs:
         with:
           entrypoint: /usr/local/bin/node
           args: -v
+```
+
+**BoschArtifactory**
+
+```
+container:
+      image: artifactory.boschdevcloud.com/top99-cr-local/neutrinos-gha-base:latest
+      credentials:
+          username: ${{ secrets.BDC_ARTIFACTORY_USERNAME }}
+          password: ${{ secrets.BDC_ARTIFACTORY_APIKEY }}
 ```
